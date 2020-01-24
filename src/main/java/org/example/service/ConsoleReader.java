@@ -26,7 +26,8 @@ public class ConsoleReader {
                 .productQuantityMap(products)
                 .daysTillPurchaseFromToday(
                         getNextInt(in,
-                                "Specify how many days from today you want to purchase to be completed"))
+                                "Specify the difference from today in days of the date " +
+                                        "when you want to purchase to be completed"))
                 .build();
     }
     private int getNextInt(Scanner in, String query) {

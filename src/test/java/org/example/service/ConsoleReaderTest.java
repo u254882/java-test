@@ -34,6 +34,21 @@ public class ConsoleReaderTest {
         assertEquals(actual, expected);
 
     }
+    @Test
+    public void readBasketFromConsoleWithPastPurchase() {
+        //given
+        String inputString = "8\n" +
+                "4\n" +
+                "3\n" +
+                "2\n" +
+                "-5\n";
+        //when
+        ByteArrayInputStream in = new ByteArrayInputStream(inputString.getBytes());
+        Basket actual = consoleReader.readBasketFromConsole(new Scanner(in));
+        Basket expected = getExpectedBasketWithDayInPast();
+        assertEquals(actual, expected);
+
+    }
 
     private Basket getExpectedBasket() {
         Map<Product, Integer> products = new HashMap<>();
@@ -44,6 +59,17 @@ public class ConsoleReaderTest {
         return Basket.builder()
                 .productQuantityMap(products)
                 .daysTillPurchaseFromToday(70)
+                .build();
+    }
+    private Basket getExpectedBasketWithDayInPast() {
+        Map<Product, Integer> products = new HashMap<>();
+        products.put(Product.builder().name(SOUP).build(), 8);
+        products.put(Product.builder().name(BREAD).build(), 4);
+        products.put(Product.builder().name(MILK).build(), 3);
+        products.put(Product.builder().name(APPLE).build(), 2);
+        return Basket.builder()
+                .productQuantityMap(products)
+                .daysTillPurchaseFromToday(-5)
                 .build();
     }
 }
